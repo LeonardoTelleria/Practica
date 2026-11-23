@@ -53,3 +53,15 @@ SessionLocal = sessionmaker(
     autocommit=False, #exige confirmar los cambios
     expire_on_commit=False, #evita que los objetos se vacien tras hacer commit
 )
+
+@contextmanager #convierte la funcion simple en bloque with getsession as session, para no escribir try/except/commit/rollback/close cada vez que se consulte en sqlserver
+def get_session():
+    session = SessionLocal()
+    try:
+        yield session #entrega la sesion abierta al codigo que la usa y cuando termina el bloque with ejecuta el commit o el rollback
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close() #la sesion vuelve al pool y se cierra
