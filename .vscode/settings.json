@@ -1,0 +1,9 @@
+{
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/tiendita_app"
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/tiendita_app/.venv/Scripts/python.exe",
+  "terminal.integrated.env.windows": {
+    "PYTHONPATH": "${workspaceFolder}/tiendita_app"
+  }
+}

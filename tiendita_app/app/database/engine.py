@@ -16,7 +16,7 @@ def url_database() -> str:
     database = os.getenv("DB_NAME", "pulperiasDB") #lee los parametros de entorno
     user = os.getenv("DB_USER", "")
     password = os.getenv("DB_PASSWORD", "")
-    trust_cert = os.getenv("BD_TRUST_CERT", "yes") #)
+    trust_cert = os.getenv("DB_TRUST_CERT", "yes") #)
 
     if user and password:
         odbc_str = (
@@ -38,10 +38,10 @@ def url_database() -> str:
     return f"mssql+pyodbc:///?odbc_connect={quote_plus(odbc_str)}" #indica a a sqlalchemist que use dialecto de sqlserver con pyodbc
 
 
-DATABAS_URL = url_database() #guardar conexion
+DATABASE_URL = url_database() #guardar conexion
 
 engine = create_engine(
-    DATABAS_URL,
+    DATABASE_URL,
     pool_pre_ping=True, #antes de entregar una conexion de pool, verifica que siga viva. para que al reiniciar ocerrar sqls server se renueve
     pool_size=5, #mantienen hasta 5 conexiones abiertas
     max_overflow=10, #permite 10 extra en picos de demanda
